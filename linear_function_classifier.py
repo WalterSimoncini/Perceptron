@@ -18,11 +18,6 @@ def load_csv_data(file_name):
     
     return (targets, inputs)
 
-# Targets and inputs for the OR function
-# targets = [0, 1, 1, 1] 
-# The values of each input array correspond to input node 1, input node 2 and the bias input which is always one
-# inputs = [[0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 1]]
-
 training_csv = load_csv_data('training.csv')
 targets = training_csv[0]
 inputs = training_csv[1]
