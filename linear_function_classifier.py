@@ -110,13 +110,15 @@ for i in range(0, len(validation_targets)):
         # Calculate the output of the network
         activation = activation_function(output)
 
+        point_log = "Point (" + str(in_values[0]) + ", " + str(in_values[1]) + ")"
+
         if activation == t:
             if verbose:
-                print("Point (" + str(in_values[0]) + ", " + str(in_values[1]) + ") maps to " + str(t) + " - Correct")
+                print(point_log + " maps to " + str(t) + " - Correct")
             correct_outputs += 1
         else:
             if verbose:
-                print("Point (" + str(in_values[0]) + ", " + str(in_values[1]) + ") maps to " + str(activation) + " - Incorrect")
+                print(point_log + " maps to " + str(activation) + " - Incorrect")
 
 if verbose:
     print("\nValidation complete" + line_separator)

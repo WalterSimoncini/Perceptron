@@ -52,7 +52,10 @@ while sum_error > 0:
             delta = learning_constant * error * inputs[i][j]
             weights[j] += delta
 
-        print "Target: " + str(t) + " - Ouput: " + str(output) + " -> Activation: " + str(activation) + " - Weights: " + str(weights)
+        log = "Target: " + str(t) + " - Ouput: " + str(output) 
+        log += " -> Activation: " + str(activation) + " - Weights: " + str(weights)
+
+        print log
     
     print("\nEpoch " + str(epoch) + " with error sum: " + str(sum_error) + line_separator)
 

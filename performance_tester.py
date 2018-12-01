@@ -6,7 +6,8 @@ def generate_training_set (training_set_size):
 
 # Runs the linear function classifier and returns the ouput accuracy
 def run_program ():
-    process = subprocess.Popen(['python', 'linear_function_classifier.py', 'n'], stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
+    process = subprocess.Popen(['python', 'linear_function_classifier.py', 'n'], 
+                            stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
     return process.communicate()[0].rstrip("\n")
 
 out_file = open("performance.csv", "w")
