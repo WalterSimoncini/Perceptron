@@ -52,9 +52,10 @@ while sum_error > 0:
             delta = learning_constant * error * inputs[i][j]
             weights[j] += delta
 
-        print "Target: " + str(t) + " - Ouput: " + str(activation) + " - " + str(weights)
+        print "Target: " + str(t) + " - Ouput: " + str(output) + " -> Activation: " + str(activation) + " - Weights: " + str(weights)
     
     print("\nEpoch " + str(epoch) + " with error sum: " + str(sum_error) + line_separator)
 
+    # Pause 1 second between each epoch to let the user see the perceptron's progress
     time.sleep(1)
     epoch += 1

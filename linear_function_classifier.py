@@ -1,3 +1,4 @@
+import sys
 import csv
 import time 
 import random
@@ -5,6 +6,15 @@ import random
 line_separator = "\n------------------------------------------------------------------\n"
 learning_constant = 0.1
 
+verbose = True
+
+# To suppress the verbose output use "n" as a command line argument
+if len(sys.argv) >= 2:
+    verbose = sys.argv[1] != "n"
+
+# Load a csv file in the format x, y, z where z is an integer with the 
+# value 0 or 1 that defines whether the point with the coordinates (x, y)
+# is above or below the line
 def load_csv_data(file_name):
     targets = []
     inputs = []
@@ -14,10 +24,13 @@ def load_csv_data(file_name):
 
         for row in csv_data:
             targets.append(int(row[2]))
+
+            # The values of each input array correspond to x, y and to the bias input which is always one
             inputs.append([int(row[0]), int(row[1]), 1])
     
     return (targets, inputs)
 
+# Load the training data set
 training_csv = load_csv_data('training.csv')
 targets = training_csv[0]
 inputs = training_csv[1]
@@ -26,17 +39,22 @@ inputs = training_csv[1]
 weights = [random.uniform(-1.0, 1.0), random.uniform(-1.0, 1.0), random.uniform(-1.0, 1.0)]
 sum_error = 1000
 
-# This function implements the behavior of the sign function so if the input value is higher
-# than 0 it will return 1 and 0 otherwise.
+# This function implements the behavior of the sign function:
+# if the input value is higher than 0 it will return 1 and 0 
+# otherwise.
 def activation_function (value):
         if value > 0:
             return 1
         else:
             return 0
 
-print "Random weights: " + str(weights) + line_separator
+if verbose:
+    print("Random weights: " + str(weights) + line_separator)
 
 epoch = 1
+
+# Train the network until we reach a total error of 0 which means
+# that the perceptron can predict 100% of the training data set
 while sum_error > 0:
     sum_error = 0.0
 
@@ -60,20 +78,29 @@ while sum_error > 0:
             delta = learning_constant * error * inputs[i][j]
             weights[j] += delta
 
-        print "Target: " + str(t) + " - Ouput: " + str(activation) + " - " + str(weights)
+        if verbose:
+            print("Target: " + str(t) + " - Ouput: " + str(activation) + " - " + str(weights))
     
-    print("\nEpoch " + str(epoch) + " with error sum: " + str(sum_error) + line_separator)
+    if verbose:
+        print("\nEpoch " + str(epoch) + " with error sum: " + str(sum_error) + line_separator)
 
-    time.sleep(1)
+    # If the verbose mode is active pause 1 second between each epoch to let
+    # the user see the perceptron's progress
+    if verbose:
+        time.sleep(1)
+    
     epoch += 1
 
-print("Training complete - Performing validation... " + line_separator)
+if verbose:
+    print("Training complete - Performing validation... " + line_separator)
 
+# Load the validation data set
 validation_csv = load_csv_data('validation.csv')
 validation_targets = validation_csv[0]
 validation_inputs = validation_csv[1]
 correct_outputs = 0
 
+# Validate the perceptron over the validation data set and record the accuracy achieved
 for i in range(0, len(validation_targets)):
         t = validation_targets[i]
         in_values = validation_inputs[i]
@@ -84,12 +111,19 @@ for i in range(0, len(validation_targets)):
         activation = activation_function(output)
 
         if activation == t:
-            print("Point (" + str(in_values[0]) + ", " + str(in_values[1]) + ") maps to " + str(t) + " - Correct")
+            if verbose:
+                print("Point (" + str(in_values[0]) + ", " + str(in_values[1]) + ") maps to " + str(t) + " - Correct")
             correct_outputs += 1
         else:
-            print("Point (" + str(in_values[0]) + ", " + str(in_values[1]) + ") maps to " + str(activation) + " - Incorrect")
+            if verbose:
+                print("Point (" + str(in_values[0]) + ", " + str(in_values[1]) + ") maps to " + str(activation) + " - Incorrect")
 
-print("\nValidation complete" + line_separator)
+if verbose:
+    print("\nValidation complete" + line_separator)
 
 percent_correct = correct_outputs / float(len(validation_targets))
-print("The classifier was able to predict " + str(percent_correct * 100) + "% of the validation set")
+
+if verbose:
+    print("The classifier was able to predict " + str(percent_correct * 100) + "% of the validation set")
+else:
+    print(percent_correct)
