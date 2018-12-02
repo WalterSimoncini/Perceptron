@@ -55,7 +55,11 @@ while sum_error > 0:
                 if delta == 0: delta = 0.0 # Make sure not to generate output like -0.0
                 deltas.append(delta)
 
-                print("\t dw" + str(j) + " = " + str(learning_rate) + " x (" + str(t) + " - " + str(activation) + ") x " + str(inputs[i][j])) + " = " + str(delta)
+                delta_log = "\t dw" + str(j) + " = " 
+                delta_log += str(learning_rate) + " x (" + str(t) + " - " + str(activation) + ") x "
+                delta_log += str(inputs[i][j]) + " = " + str(delta)
+                
+                print(delta_log)
                 
             print("\nUpdate the weights:")
 
@@ -65,7 +69,10 @@ while sum_error > 0:
                 # Round off the weights in order to avoid floating point arithmetic errors
                 tmp_weight = round(weights[v] + deltas[v], 10)
                 
-                print("\t W" + str(v) + " = " + str(weights[v]) + " + " + str(deltas[v])) + " = " + str(tmp_weight)
+                weight_log = "\t W" + str(v) + " = "
+                weight_log += str(weights[v]) + " + " + str(deltas[v]) + " = " + str(tmp_weight)
+
+                print(weight_log)
 
                 weights[v] = tmp_weight
 
