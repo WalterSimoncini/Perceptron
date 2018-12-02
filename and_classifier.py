@@ -52,9 +52,10 @@ while sum_error > 0:
             deltas = []
             for j in range(0, len(weights)):
                 delta = learning_rate * error * inputs[i][j]
+                if delta == 0: delta = 0.0 # Make sure not to generate output like -0.0
                 deltas.append(delta)
 
-                print("\t dw" + str(j) + " = " + str(learning_rate) + " x " + str(error) + " x " + str(inputs[i][j])) + " = " + str(delta)
+                print("\t dw" + str(j) + " = " + str(learning_rate) + " x (" + str(t) + " - " + str(activation) + ") x " + str(inputs[i][j])) + " = " + str(delta)
                 
             print("\nUpdate the weights:")
 
