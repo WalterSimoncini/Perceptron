@@ -30,4 +30,4 @@ for i in range(0, 100):
     average_correct_percentage = cumulative_correct_percentage / 10.0
     out_file.write(str(dataset_size) + ", " + str(average_correct_percentage) + "\n")
 
-    print("Processed data set with size: " + str(dataset_size));
+    print("Processed data set with size: " + str(dataset_size))
