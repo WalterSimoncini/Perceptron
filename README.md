@@ -24,4 +24,4 @@ Where:
 - `<filename>` is the filename of the output csv file (without the .csv extension)
 - `<data_set_size>` is the size of the generated data set (e.g. 100)
 
-The data generator generates data sets for the function $y = 2x + 1$ but you can edit it to generate data for any kind of linear function.
+The data generator generates data sets for the function `y = 2x + 1` but you can edit it to generate data for any kind of linear function.
