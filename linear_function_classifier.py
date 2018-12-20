@@ -19,7 +19,7 @@ def load_csv_data(file_name):
     targets = []
     inputs = []
 
-    with open(file_name, 'rb') as csv_file:
+    with open(file_name, 'rt') as csv_file:
         csv_data = csv.reader(csv_file, delimiter=',')
 
         for row in csv_data:
@@ -49,6 +49,7 @@ def activation_function (value):
             return 0
 
 if verbose:
+    print("Verbose mode: the program will pause 1 second between each epoch")
     print("Random weights: " + str(weights) + line_separator)
 
 epoch = 1
